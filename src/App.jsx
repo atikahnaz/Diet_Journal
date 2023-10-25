@@ -1,10 +1,23 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import DateSelect from "./components/DateSelect";
+import Box from "@mui/material/Box";
+import AddInput from "./components/AddInput";
 
 function App() {
-  return <h1>hi</h1>;
+  const [text, setText] = useState("");
+  const [listFood, setListFood] = useState([]);
+
+  const AddFunction = () => {};
+
+  return (
+    <>
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <DateSelect />
+        <AddInput />
+      </Box>
+    </>
+  );
 }
 
 export default App;
