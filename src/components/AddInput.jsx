@@ -11,7 +11,7 @@ import AddButton from "./AddButton";
 import FormInput from "./FormInput";
 import DateSelect from "./DateSelect";
 
-export default function AddInput({ AddFunction, date }) {
+export default function AddInput({ date }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -32,7 +32,7 @@ export default function AddInput({ AddFunction, date }) {
       <AddButton onClick={handleClickOpen} />
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>What did you ate for today</DialogTitle>
+        <DialogTitle>{`What did you ate for today ${date}`}</DialogTitle>
         <DialogContent>
           <FormInput />
           <DialogActions>

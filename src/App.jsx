@@ -7,14 +7,20 @@ import AddInput from "./components/AddInput";
 function App() {
   const [text, setText] = useState("");
   const [listFood, setListFood] = useState([]);
+  const [date, setDate] = useState("");
 
-  const AddFunction = () => {};
+  const callbackdate = (date) => {
+    console.log("date " + date);
+    setDate(date);
+  };
+
+  const displayDate = () => {};
 
   return (
     <>
       <Box display="flex" alignItems="center" justifyContent="center">
-        <DateSelect />
-        <AddInput />
+        <DateSelect callbackdate={callbackdate} />
+        <AddInput date={date} />
       </Box>
     </>
   );
