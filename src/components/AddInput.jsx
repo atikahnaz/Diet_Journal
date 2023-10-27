@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,10 +9,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddButton from "./AddButton";
 import FormInput from "./FormInput";
-import DateSelect from "./DateSelect";
+import ListFood from "./ListFood";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Input from "@mui/joy/Input";
+import ListDivider from "@mui/joy/ListDivider";
 
-export default function AddInput({ date }) {
-  const [open, setOpen] = React.useState(false);
+export default function AddInput({ date, saveToApp }) {
+  const [open, setOpen] = useState(false);
+  const [food, setFood] = useState("");
+  const [listFood, setListFood] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,6 +27,21 @@ export default function AddInput({ date }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const testadd = () => {
+    const objectFood = {
+      id: date,
+      food: listFood,
+    };
+    saveToApp(objectFood); //callback function from app.jsx to send data
+    handleClose();
+  };
+
+  const addListFood = () => {
+    const updatedListFood = [...listFood, food];
+    setListFood(updatedListFood);
+    setFood("");
   };
 
   // show in console log when date change
@@ -30,39 +52,49 @@ export default function AddInput({ date }) {
   return (
     <div>
       <AddButton onClick={handleClickOpen} />
-
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{`What did you ate for today ${date}`}</DialogTitle>
         <DialogContent>
-          <FormInput />
+          <TextField
+            variant="outlined"
+            label="Food"
+            multiline
+            fullWidth
+            margin="dense"
+            value={food}
+            onChange={(event) => setFood(event.target.value)}
+          ></TextField>
           <DialogActions>
-            <Button
-              variant="contained"
-              onClick={() => console.log("addButton")}
-            >
+            <Button variant="contained" onClick={addListFood}>
               Add
             </Button>
           </DialogActions>
+
+          {/* view list of food from the array listFood */}
+          <DialogContentText>List of food you have eaten</DialogContentText>
+          <List>
+            {listFood.map((food) => (
+              <>
+                <ListItem sx={{ pl: 0 }}>
+                  <Input
+                    fullWidth
+                    inset="gutter"
+                    value={food}
+                    sx={{ pl: 0 }}
+                    variant="plain"
+                  />
+                  <DeleteIcon />
+                </ListItem>
+                <ListDivider inset={"gutter"} />
+              </>
+            ))}
+          </List>
         </DialogContent>
 
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
+        {/*when save button click, send the list food data to the App.jsx using callback*/}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained" onClick={testadd}>
             Save
           </Button>
         </DialogActions>
