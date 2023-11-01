@@ -16,13 +16,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "@mui/joy/Input";
 import ListDivider from "@mui/joy/ListDivider";
 
-export default function AddInput({ date, saveToApp }) {
+export default function AddInput({ date, saveToApp, listobjectFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
   const [listFood, setListFood] = useState([]);
 
+  console.log("list food " + JSON.stringify(listobjectFood));
   const handleClickOpen = () => {
-    setOpen(true);
+    if (date) {
+      setOpen(true);
+    } else {
+      console.log("enter date");
+    }
   };
 
   const handleClose = () => {
@@ -30,6 +35,7 @@ export default function AddInput({ date, saveToApp }) {
   };
 
   const testadd = () => {
+    //assign food to id,food and sent the data to app.jsx to save.
     const objectFood = {
       id: date,
       food: listFood,
