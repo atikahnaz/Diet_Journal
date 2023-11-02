@@ -23,17 +23,25 @@ function App() {
     },
   ]);
 
+  useEffect(() => {});
+
   // iterate array in listfood based on the id(date)
   const callbackdate = (date) => {
     const selectedObject = listFood.find((item) => item.id === date);
     if (selectedObject) {
       setSelectedDateFood(selectedObject);
+    } else {
+      setSelectedDateFood({
+        id: null,
+        food: [],
+      });
     }
     console.log("date " + date);
     setDate(date);
   };
 
   console.log("selectedfood" + JSON.stringify(selectedDateFood));
+
   const addListFood = (data) => {
     // check if the date exist
     const checkDate = data.id;
@@ -45,6 +53,7 @@ function App() {
     // if not index found, it will return -1
     if (indexUpdate !== -1) {
       //the date exist, so update the list based on id
+      const updatedList = data.food;
       listFood[indexUpdate].food.push(data.food);
       setListFood([...listFood]);
     } else {
@@ -94,8 +103,8 @@ function App() {
         <DateSelect callbackdate={callbackdate} />
         <AddInput
           date={date}
-          saveToApp={addListFood}
           listobjectFood={selectedDateFood}
+          callbackAddFood={addListFood}
         />
       </Box>
       <Box>

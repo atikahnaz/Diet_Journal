@@ -53,12 +53,16 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     handleClose();
   };
 
+  const saveUpdatedList = () => {
+    callbackAddFood(listFood);
+  };
+
   // sent data to app.jsx, update the list, sent it back to add input,
-  const addNewFood = () => {
+  /*const addNewFood = () => {
     useEffect(() => {
       callbackAddFood(food, date);
     }, [food]);
-  };
+  };*/
 
   const addListFood = () => {
     const updatedListFood = [...listFood.food, food];
@@ -119,7 +123,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
         {/*when save button click, send the list food data to the App.jsx using callback*/}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" onClick={testadd}>
+          <Button variant="contained" onClick={saveUpdatedList}>
             Save
           </Button>
         </DialogActions>
