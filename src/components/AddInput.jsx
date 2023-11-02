@@ -16,12 +16,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "@mui/joy/Input";
 import ListDivider from "@mui/joy/ListDivider";
 
-export default function AddInput({ date, saveToApp, listobjectFood }) {
+export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
-  const [listFood, setListFood] = useState([]);
+  const [listFood, setListFood] = useState(listobjectFood);
+  //listobjectfood should be only an object with multiple food with one id
 
-  console.log("list food " + JSON.stringify(listobjectFood));
+  useEffect(() => {
+    setListFood(listobjectFood);
+  }, [listobjectFood]);
+
+  console.log(listobjectFood);
+  console.log(listFood);
   const handleClickOpen = () => {
     if (date) {
       setOpen(true);
@@ -35,18 +41,28 @@ export default function AddInput({ date, saveToApp, listobjectFood }) {
   };
 
   const testadd = () => {
+    // check if the id exist.
     //assign food to id,food and sent the data to app.jsx to save.
+
     const objectFood = {
       id: date,
       food: listFood,
     };
+    console.log("saveapp " + JSON.stringify(objectFood));
     saveToApp(objectFood); //callback function from app.jsx to send data
     handleClose();
   };
 
+  // sent data to app.jsx, update the list, sent it back to add input,
+  const addNewFood = () => {
+    useEffect(() => {
+      callbackAddFood(food, date);
+    }, [food]);
+  };
+
   const addListFood = () => {
-    const updatedListFood = [...listFood, food];
-    setListFood(updatedListFood);
+    const updatedListFood = [...listFood.food, food];
+    setListFood({ ...listFood, food: updatedListFood });
     setFood("");
   };
 
@@ -79,21 +95,24 @@ export default function AddInput({ date, saveToApp, listobjectFood }) {
           {/* view list of food from the array listFood */}
           <DialogContentText>List of food you have eaten</DialogContentText>
           <List>
-            {listFood.map((food) => (
-              <>
-                <ListItem sx={{ pl: 0 }}>
-                  <Input
-                    fullWidth
-                    inset="gutter"
-                    value={food}
-                    sx={{ pl: 0 }}
-                    variant="plain"
-                  />
-                  <DeleteIcon />
-                </ListItem>
-                <ListDivider inset={"gutter"} />
-              </>
-            ))}
+            {/* iterate list if the listfood already exist. if no data, show empty list */}
+            {Array.isArray(listFood.food) && listFood.food.length > 0
+              ? listFood.food.map((food) => (
+                  <>
+                    <ListItem sx={{ pl: 0 }}>
+                      <Input
+                        fullWidth
+                        inset="gutter"
+                        value={food}
+                        sx={{ pl: 0 }}
+                        variant="plain"
+                      />
+                      <DeleteIcon />
+                    </ListItem>
+                    <ListDivider inset={"gutter"} />
+                  </>
+                ))
+              : null}
           </List>
         </DialogContent>
 

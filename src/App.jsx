@@ -8,13 +8,32 @@ import { TextField } from "@mui/joy";
 function App() {
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
-  const [listFood, setListFood] = useState([]);
+  const [selectedDateFood, setSelectedDateFood] = useState({
+    id: null,
+    food: [],
+  });
+  const [listFood, setListFood] = useState([
+    {
+      id: "01/11/2023",
+      food: ["rice", "vege"],
+    },
+    {
+      id: "02/11/2023",
+      food: ["oren", "sushi"],
+    },
+  ]);
 
+  // iterate array in listfood based on the id(date)
   const callbackdate = (date) => {
+    const selectedObject = listFood.find((item) => item.id === date);
+    if (selectedObject) {
+      setSelectedDateFood(selectedObject);
+    }
     console.log("date " + date);
     setDate(date);
   };
 
+  console.log("selectedfood" + JSON.stringify(selectedDateFood));
   const addListFood = (data) => {
     // check if the date exist
     const checkDate = data.id;
@@ -40,6 +59,27 @@ function App() {
     console.log(date);
   };
 
+  const addNewFood = (food, date) => {
+    const checkDate = date;
+    // if id exist, find the index
+    const indexUpdate = listFood.findIndex(
+      (element) => element.id === checkDate
+    );
+    // if not index found, it will return -1
+    if (indexUpdate !== -1) {
+      //the date exist, so update the list based on id
+      listFood[indexUpdate].food.push(data.food);
+      setListFood([...listFood]);
+    } else {
+      // create new object
+      const newItem = {
+        id: date,
+        food: food,
+      };
+      setListFood([...listFood, newItem]);
+    }
+  };
+
   useEffect(() => {
     console.log("main food " + JSON.stringify(listFood));
   }, [listFood]);
@@ -55,7 +95,7 @@ function App() {
         <AddInput
           date={date}
           saveToApp={addListFood}
-          listobjectFood={listFood}
+          listobjectFood={selectedDateFood}
         />
       </Box>
       <Box>
