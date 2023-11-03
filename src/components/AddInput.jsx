@@ -40,40 +40,40 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     setOpen(false);
   };
 
-  const testadd = () => {
-    // check if the id exist.
-    //assign food to id,food and sent the data to app.jsx to save.
-
-    const objectFood = {
-      id: date,
-      food: listFood,
-    };
-    console.log("saveapp " + JSON.stringify(objectFood));
-    saveToApp(objectFood); //callback function from app.jsx to send data
+  // when clicksave button, sent data to app.jsx
+  const saveUpdatedList = () => {
+    callbackAddFood(listFood);
     handleClose();
   };
 
-  const saveUpdatedList = () => {
-    callbackAddFood(listFood);
-  };
-
-  // sent data to app.jsx, update the list, sent it back to add input,
-  /*const addNewFood = () => {
-    useEffect(() => {
-      callbackAddFood(food, date);
-    }, [food]);
-  };*/
-
+  // when click add, update the list of food
   const addListFood = () => {
-    const updatedListFood = [...listFood.food, food];
-    setListFood({ ...listFood, food: updatedListFood });
+    let updatedListFood;
+    listFood.food.length === 0
+      ? (updatedListFood = { id: date, food: [food] })
+      : (updatedListFood = { ...listFood, food: [...listFood.food, food] });
+
+    setListFood(updatedListFood);
     setFood("");
   };
+
+  useEffect(() => {
+    console.log(listFood);
+  }, [listFood]);
 
   // show in console log when date change
   useEffect(() => {
     console.log("test " + date);
   }, [date]);
+
+  // delete selected food, and update the list.
+  const deleteFood = (index) => {
+    const updatedFood = [...listFood.food];
+    updatedFood.splice(index, 1);
+
+    const updatedListFood = { ...listFood, food: updatedFood };
+    setListFood(updatedListFood);
+  };
 
   return (
     <div>
@@ -101,7 +101,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
           <List>
             {/* iterate list if the listfood already exist. if no data, show empty list */}
             {Array.isArray(listFood.food) && listFood.food.length > 0
-              ? listFood.food.map((food) => (
+              ? listFood.food.map((food, index) => (
                   <>
                     <ListItem sx={{ pl: 0 }}>
                       <Input
@@ -111,7 +111,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         sx={{ pl: 0 }}
                         variant="plain"
                       />
-                      <DeleteIcon />
+                      <DeleteIcon onClick={() => deleteFood(index)} />
                     </ListItem>
                     <ListDivider inset={"gutter"} />
                   </>

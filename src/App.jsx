@@ -6,7 +6,6 @@ import AddInput from "./components/AddInput";
 import { TextField } from "@mui/joy";
 
 function App() {
-  const [text, setText] = useState("");
   const [date, setDate] = useState("");
   const [selectedDateFood, setSelectedDateFood] = useState({
     id: null,
@@ -23,8 +22,6 @@ function App() {
     },
   ]);
 
-  useEffect(() => {});
-
   // iterate array in listfood based on the id(date)
   const callbackdate = (date) => {
     const selectedObject = listFood.find((item) => item.id === date);
@@ -32,7 +29,7 @@ function App() {
       setSelectedDateFood(selectedObject);
     } else {
       setSelectedDateFood({
-        id: null,
+        id: date,
         food: [],
       });
     }
@@ -54,7 +51,7 @@ function App() {
     if (indexUpdate !== -1) {
       //the date exist, so update the list based on id
       const updatedList = data.food;
-      listFood[indexUpdate].food.push(data.food);
+      listFood[indexUpdate].food = updatedList;
       setListFood([...listFood]);
     } else {
       const newItem = {
@@ -66,27 +63,6 @@ function App() {
 
     console.log(data);
     console.log(date);
-  };
-
-  const addNewFood = (food, date) => {
-    const checkDate = date;
-    // if id exist, find the index
-    const indexUpdate = listFood.findIndex(
-      (element) => element.id === checkDate
-    );
-    // if not index found, it will return -1
-    if (indexUpdate !== -1) {
-      //the date exist, so update the list based on id
-      listFood[indexUpdate].food.push(data.food);
-      setListFood([...listFood]);
-    } else {
-      // create new object
-      const newItem = {
-        id: date,
-        food: food,
-      };
-      setListFood([...listFood, newItem]);
-    }
   };
 
   useEffect(() => {
@@ -108,10 +84,16 @@ function App() {
         />
       </Box>
       <Box>
-        <h1>hello</h1>
+        <h1>JOURNAL</h1>
         <ul>
-          {listFood.map((item, index) => (
-            <li key={index}>{item.food}</li>
+          {listFood.map((item1) => (
+            <>
+              <div>{item1.id}</div>
+              {item1.food.map((item2, index2) => (
+                <li key={index2}>{item2}</li>
+              ))}
+              <div></div>
+            </>
           ))}
         </ul>
       </Box>
