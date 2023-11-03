@@ -3,6 +3,7 @@ import "./App.css";
 import DateSelect from "./components/DateSelect";
 import Box from "@mui/material/Box";
 import AddInput from "./components/AddInput";
+import CardFood from "./components/CardFood";
 import { TextField } from "@mui/joy";
 
 function App() {
@@ -97,6 +98,7 @@ function App() {
           ))}
         </ul>
       </Box>
+      <CardFood listFood={listFood} />
     </>
   );
 }
