@@ -16,9 +16,11 @@ const bull = (
 );
 
 export default function BasicCard({ listFood }) {
+  // create copy of listFood, and reverse to display the latest array
+  const reverseList = [...listFood].reverse();
   return (
     <>
-      {listFood.map((list, index) => (
+      {reverseList.map((list, index) => (
         <Card sx={{ minWidth: 275, mb: 2 }}>
           <CardContent>
             <Typography
