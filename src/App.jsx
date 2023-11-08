@@ -25,6 +25,18 @@ function App() {
       id: "02/11/2023",
       food: ["oren", "sushi"],
     },
+    {
+      id: "03/11/2023",
+      food: ["oren", "sushi"],
+    },
+    {
+      id: "04/11/2023",
+      food: ["oren", "sushi"],
+    },
+    {
+      id: "05/11/2023",
+      food: ["oren", "sushi"],
+    },
   ]);
 
   // iterate array in listfood based on the id(date)
@@ -83,13 +95,16 @@ function App() {
       {/* open dialog input */}
       <Box
         display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
         alignItems="center"
         justifyContent="center"
-        sx={{ my: 3 }}
+        sx={{}}
       >
         <Header />
         <div>
-          <Typography variant="h4">FOOD JOURNAL</Typography>
+          <Typography variant="h4" sx={{}}>
+            FOOD JOURNAL
+          </Typography>
           <Box
             display="flex"
             alignItems="center"
@@ -119,9 +134,7 @@ function App() {
           ))}
         </ul>
       </Box>*/}
-      <Box
-        sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}
-      ></Box>
+
       <CardFood listFood={listFood} />
     </>
   );

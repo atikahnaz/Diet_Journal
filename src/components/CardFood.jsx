@@ -25,7 +25,7 @@ export default function BasicCard({ listFood }) {
   const reverseList = [...listFood].reverse();
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ mx: 2 }}>
         {reverseList.map((list, index) => (
           <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ minWidth: 275, mb: 2 }}>
