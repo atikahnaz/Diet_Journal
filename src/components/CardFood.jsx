@@ -5,6 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/system/Unstable_Grid";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 const bull = (
   <Box
@@ -20,28 +25,22 @@ export default function BasicCard({ listFood }) {
   const reverseList = [...listFood].reverse();
   return (
     <>
-      {reverseList.map((list, index) => (
-        <Card sx={{ minWidth: 275, mb: 2 }}>
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              {list.id}
-            </Typography>
-            <Typography variant="h6" component="div">
-              Food
-            </Typography>
-            {list.food.map((subList, subIndex) => (
-              <Typography variant="body2">{subList}</Typography>
-            ))}
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-      ))}
+      <Grid container spacing={2}>
+        {reverseList.map((list, index) => (
+          <Grid item xs={12} sm={6} md={4}>
+            <Card sx={{ minWidth: 275, mb: 2 }}>
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  {list.id}
+                </Typography>
+                {list.food.map((subList, subIndex) => (
+                  <Typography variant="body2">- {subList}</Typography>
+                ))}
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }

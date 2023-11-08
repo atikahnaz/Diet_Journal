@@ -4,6 +4,10 @@ import DateSelect from "./components/DateSelect";
 import Box from "@mui/material/Box";
 import AddInput from "./components/AddInput";
 import CardFood from "./components/CardFood";
+import Header from "./components/Header";
+import Typography from "@mui/material/Typography";
+import BarApp from "./components/BarApp";
+import Grid from "@mui/material/Grid";
 import { TextField } from "@mui/joy";
 
 function App() {
@@ -75,16 +79,33 @@ function App() {
 
   return (
     <>
+      <BarApp />
       {/* open dialog input */}
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <DateSelect callbackdate={callbackdate} />
-        <AddInput
-          date={date}
-          listobjectFood={selectedDateFood}
-          callbackAddFood={addListFood}
-        />
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ my: 3 }}
+      >
+        <Header />
+        <div>
+          <Typography variant="h4">FOOD JOURNAL</Typography>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="left"
+            sx={{ my: 3 }}
+          >
+            <DateSelect callbackdate={callbackdate} />
+            <AddInput
+              date={date}
+              listobjectFood={selectedDateFood}
+              callbackAddFood={addListFood}
+            />
+          </Box>
+        </div>
       </Box>
-      <Box>
+      {/* <Box>
         <h1>JOURNAL</h1>
         <ul>
           {listFood.map((item1) => (
@@ -97,7 +118,10 @@ function App() {
             </>
           ))}
         </ul>
-      </Box>
+      </Box>*/}
+      <Box
+        sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}
+      ></Box>
       <CardFood listFood={listFood} />
     </>
   );
