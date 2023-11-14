@@ -50,7 +50,7 @@ export default function BasicCard({ listFood }) {
                     aria-label="edit"
                     sx={{ mb: 1, mr: 1 }}
                   >
-                    <EditIcon onClick={}/>
+                    <EditIcon />
                   </Fab>
                 </Box>
               </Box>
