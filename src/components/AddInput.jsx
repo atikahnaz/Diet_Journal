@@ -49,12 +49,14 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   // when click add, update the list of food
   const addListFood = () => {
     let updatedListFood;
-    listFood.food.length === 0
-      ? (updatedListFood = { id: date, food: [food] })
-      : (updatedListFood = { ...listFood, food: [...listFood.food, food] });
+    if (food.length != 0) {
+      listFood.food.length === 0
+        ? (updatedListFood = { id: date, food: [food] })
+        : (updatedListFood = { ...listFood, food: [...listFood.food, food] });
 
-    setListFood(updatedListFood);
-    setFood("");
+      setListFood(updatedListFood);
+      setFood("");
+    }
   };
 
   useEffect(() => {
