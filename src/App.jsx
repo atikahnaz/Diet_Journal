@@ -57,6 +57,8 @@ function App() {
   console.log("selectedfood" + JSON.stringify(selectedDateFood));
 
   const addListFood = (data) => {
+    // check if date exist but food list empty, delete the object
+
     // check if the date exist
     const checkDate = data.id;
 
@@ -64,11 +66,20 @@ function App() {
     const indexUpdate = listFood.findIndex(
       (element) => element.id === checkDate
     );
-    // if not index found, it will return -1
-    if (indexUpdate !== -1) {
+    // if no index found, it will return -1
+    if (indexUpdate !== -1 && data.food.length > 0) {
       //the date exist, so update the list based on id
       const updatedList = data.food;
       listFood[indexUpdate].food = updatedList;
+      console.log("djhuu");
+      setListFood([...listFood]);
+    } else if (indexUpdate !== -1 && data.food.length === 0) {
+      // remove object if list food empty
+      const copyListFood = [...listFood];
+      copyListFood.splice(indexUpdate, 1);
+      console.log("bfhgfgdfbgdf");
+      setListFood(copyListFood);
+    } else if (indexUpdate == -1 && data.food.length === 0) {
       setListFood([...listFood]);
     } else {
       const newItem = {
