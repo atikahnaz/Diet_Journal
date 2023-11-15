@@ -8,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/system/Unstable_Grid";
 import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
+import FoodDialog from "./FoodDialog";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import AddInput from "./AddInput";
 
 const bull = (
   <Box
@@ -22,9 +24,10 @@ const bull = (
   </Box>
 );
 
-export default function BasicCard({ listFood }) {
+export default function BasicCard({ listFood, addListFood }) {
   // create copy of listFood, and reverse to display the latest array
   const reverseList = [...listFood].reverse();
+
   return (
     <>
       <Grid container spacing={2} sx={{ mx: 2 }}>
@@ -43,15 +46,13 @@ export default function BasicCard({ listFood }) {
                     </>
                   ))}
                 </CardContent>
+
                 <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                  <Fab
-                    size="small"
-                    color="secondary"
-                    aria-label="edit"
-                    sx={{ mb: 1, mr: 1 }}
-                  >
-                    <EditIcon />
-                  </Fab>
+                  <FoodDialog
+                    date={list.id}
+                    listobjectFood={list}
+                    callbackAddFood={addListFood}
+                  />
                 </Box>
               </Box>
             </Card>

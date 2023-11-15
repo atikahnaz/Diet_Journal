@@ -120,22 +120,8 @@ function App() {
           </Box>
         </div>
       </Box>
-      {/* <Box>
-        <h1>JOURNAL</h1>
-        <ul>
-          {listFood.map((item1) => (
-            <>
-              <div>{item1.id}</div>
-              {item1.food.map((item2, index2) => (
-                <li key={index2}>{item2}</li>
-              ))}
-              <div></div>
-            </>
-          ))}
-        </ul>
-      </Box>*/}
 
-      <CardFood listFood={listFood} />
+      <CardFood listFood={listFood} addListFood={addListFood} />
     </>
   );
 }
