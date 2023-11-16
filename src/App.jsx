@@ -11,33 +11,19 @@ import Grid from "@mui/material/Grid";
 import { TextField } from "@mui/joy";
 
 function App() {
+  // retrieve localdata
+  const localData = JSON.parse(localStorage.getItem("foods"));
   const [date, setDate] = useState("");
   const [selectedDateFood, setSelectedDateFood] = useState({
     id: null,
     food: [],
   });
-  const [listFood, setListFood] = useState([
-    {
-      id: "01/11/2023",
-      food: ["rice", "vege"],
-    },
-    {
-      id: "02/11/2023",
-      food: ["oren", "sushi"],
-    },
-    {
-      id: "03/11/2023",
-      food: ["oren", "sushi"],
-    },
-    {
-      id: "04/11/2023",
-      food: ["oren", "sushi"],
-    },
-    {
-      id: "05/11/2023",
-      food: ["oren", "sushi"],
-    },
-  ]);
+  const [listFood, setListFood] = useState(localData);
+
+  // save the data to localstorage everytime listfood changed
+  useEffect(() => {
+    localStorage.setItem("foods", JSON.stringify(listFood));
+  }, [listFood]);
 
   // get date from calendar, iterate array in listfood based on the id(date)
   const callbackdate = (date) => {

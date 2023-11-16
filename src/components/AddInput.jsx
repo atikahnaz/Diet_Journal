@@ -45,6 +45,10 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     callbackAddFood(listFood);
     handleClose();
   };
+  const cancel = () => {
+    setListFood(listobjectFood);
+    setOpen(false);
+  };
 
   // when click add, update the list of food
   const addListFood = () => {
@@ -75,11 +79,6 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
     const updatedListFood = { ...listFood, food: updatedFood };
     setListFood(updatedListFood);
-  };
-
-  const cancel = () => {
-    setListFood(listobjectFood);
-    setOpen(false);
   };
 
   return (
