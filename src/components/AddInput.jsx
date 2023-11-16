@@ -77,6 +77,11 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     setListFood(updatedListFood);
   };
 
+  const cancel = () => {
+    setListFood(listobjectFood);
+    setOpen(false);
+  };
+
   return (
     <div>
       <AddButton onClick={handleClickOpen} />
@@ -124,7 +129,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
         {/*when save button click, send the list food data to the App.jsx using callback*/}
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={cancel}>Cancel</Button>
           <Button variant="contained" onClick={saveUpdatedList}>
             Save
           </Button>

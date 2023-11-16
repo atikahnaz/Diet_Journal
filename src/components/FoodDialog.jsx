@@ -80,6 +80,11 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     setListFood(updatedListFood);
   };
 
+  const cancel = () => {
+    setListFood(listobjectFood);
+    setOpen(false);
+  };
+
   return (
     <div>
       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -136,7 +141,7 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
 
         {/*when save button click, send the list food data to the App.jsx using callback*/}
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={cancel}>Cancel</Button>
           <Button variant="contained" onClick={saveUpdatedList}>
             Save
           </Button>

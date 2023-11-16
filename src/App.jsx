@@ -39,7 +39,7 @@ function App() {
     },
   ]);
 
-  // iterate array in listfood based on the id(date)
+  // get date from calendar, iterate array in listfood based on the id(date)
   const callbackdate = (date) => {
     const selectedObject = listFood.find((item) => item.id === date);
     if (selectedObject) {
@@ -57,30 +57,29 @@ function App() {
   console.log("selectedfood" + JSON.stringify(selectedDateFood));
 
   const addListFood = (data) => {
-    // check if date exist but food list empty, delete the object
-
-    // check if the date exist
+    // check if the date/id exist
     const checkDate = data.id;
 
     // if id exist, find the index
+    // if no index found, it will return -1
     const indexUpdate = listFood.findIndex(
       (element) => element.id === checkDate
     );
-    // if no index found, it will return -1
+
     if (indexUpdate !== -1 && data.food.length > 0) {
       //the date exist, so update the list based on id
       const updatedList = data.food;
       listFood[indexUpdate].food = updatedList;
-      console.log("djhuu");
       setListFood([...listFood]);
+      //date exist but empty list. remove the object
     } else if (indexUpdate !== -1 && data.food.length === 0) {
-      // remove object if list food empty
       const copyListFood = [...listFood];
       copyListFood.splice(indexUpdate, 1);
-      console.log("bfhgfgdfbgdf");
       setListFood(copyListFood);
+      // no date and list empty, keep the original list
     } else if (indexUpdate == -1 && data.food.length === 0) {
       setListFood([...listFood]);
+      //new date, insert new list
     } else {
       const newItem = {
         id: data.id,
@@ -88,9 +87,6 @@ function App() {
       };
       setListFood([...listFood, newItem]);
     }
-
-    console.log(data);
-    console.log(date);
   };
 
   useEffect(() => {
@@ -131,7 +127,6 @@ function App() {
           </Box>
         </div>
       </Box>
-
       <CardFood listFood={listFood} addListFood={addListFood} />
     </>
   );
