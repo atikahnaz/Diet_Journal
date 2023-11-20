@@ -7,9 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import AddButton from "./AddButton";
-import FormInput from "./FormInput";
-import ListFood from "./ListFood";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,6 +20,7 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
   const [listFood, setListFood] = useState(listobjectFood);
+  const [toEditFood, setToEditFood] = useState("");
   //listobjectfood should be only an object with multiple food with one id
 
   useEffect(() => {
@@ -75,7 +73,6 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const deleteFood = (index) => {
     const updatedFood = [...listFood.food];
     updatedFood.splice(index, 1);
-
     const updatedListFood = { ...listFood, food: updatedFood };
     setListFood(updatedListFood);
   };
@@ -83,6 +80,14 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const cancel = () => {
     setListFood(listobjectFood);
     setOpen(false);
+  };
+
+  const editFoods = (event, index) => {
+    const updatedFood = [...listFood.food];
+    const editedFood = event.target.value;
+    updatedFood.splice(index, 1, editedFood);
+    const updatedListFood = { ...listFood, food: updatedFood };
+    setListFood(updatedListFood);
   };
 
   return (
@@ -129,7 +134,9 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
                         value={food}
                         sx={{ pl: 0 }}
                         variant="plain"
+                        onChange={(event) => editFoods(event, index)}
                       />
+
                       <DeleteIcon onClick={() => deleteFood(index)} />
                     </ListItem>
                     <ListDivider inset={"gutter"} />
