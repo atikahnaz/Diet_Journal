@@ -100,7 +100,7 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
         </Fab>
       </Box>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`What did you ate for today ${date}`}</DialogTitle>
+        <DialogTitle>{`What did you eat on ${date}`}</DialogTitle>
         <DialogContent>
           <TextField
             variant="outlined"
@@ -118,7 +118,7 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
           </DialogActions>
 
           {/* view list of food from the array listFood */}
-          <DialogContentText>List of food you have eaten</DialogContentText>
+          <DialogContentText>List of foods you have eaten</DialogContentText>
           <List>
             {/* iterate list if the listfood already exist. if no data, show empty list */}
             {Array.isArray(listFood.food) && listFood.food.length > 0

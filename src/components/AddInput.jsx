@@ -17,6 +17,7 @@ import ListDivider from "@mui/joy/ListDivider";
 export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
+  const [symptom, setSymptom] = useState("");
   const [listFood, setListFood] = useState(listobjectFood);
   //listobjectfood should be only an object with multiple food with one id
 
@@ -49,7 +50,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   };
 
   // edit saved foods list by clicking the input/textfield
-  const editFoods = (event, index) => {
+  const editInput = (event, index) => {
     const updatedFood = [...listFood.food];
     const editedFood = event.target.value;
     updatedFood.splice(index, 1, editedFood);
@@ -70,6 +71,28 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     }
   };
 
+  // update list symptoms
+  const addListSymptoms = () => {
+    let updatedListSymptoms;
+    if (symptom.length != 0) {
+      // list data from app
+      listFood.symptoms.length === 0
+        ? (updatedListSymptoms = { id: date, symptoms: [symptom] })
+        : (updatedListSymptoms = {
+            ...listFood,
+            symptoms: [...listFood.symptoms, symptom],
+          });
+
+      setListFood(updatedListSymptoms);
+      setSymptom("");
+      console.log(updatedListSymptoms);
+    }
+  };
+
+  useEffect(() => {
+    console.log(listFood);
+  }, [listFood]);
+
   // delete selected food, and update the list.
   const deleteFood = (index) => {
     const updatedFood = [...listFood.food];
@@ -83,7 +106,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     <div>
       <AddButton onClick={handleClickOpen} />
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`What did you ate for today ${date}`}</DialogTitle>
+        <DialogTitle>{`What did you eat on ${date}`}</DialogTitle>
         <DialogContent>
           <TextField
             variant="outlined"
@@ -100,8 +123,23 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
             </Button>
           </DialogActions>
 
+          <TextField
+            variant="outlined"
+            label="Symptoms"
+            multiline
+            fullWidth
+            margin="dense"
+            value={symptom}
+            onChange={(event) => setSymptom(event.target.value)}
+          ></TextField>
+          <DialogActions>
+            <Button variant="contained" onClick={addListSymptoms}>
+              Add
+            </Button>
+          </DialogActions>
+
           {/* view list of food from the array listFood */}
-          <DialogContentText>List of food you have eaten</DialogContentText>
+          <DialogContentText>List of foods you have eaten</DialogContentText>
           <List>
             {/* iterate list if the listfood already exist. if no data, show empty list */}
             {Array.isArray(listFood.food) && listFood.food.length > 0
@@ -114,7 +152,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         value={food}
                         sx={{ pl: 0 }}
                         variant="plain"
-                        onChange={(event) => editFoods(event, index)}
+                        onChange={(event) => editInput(event, index)}
                       />
                       <DeleteIcon onClick={() => deleteFood(index)} />
                     </ListItem>

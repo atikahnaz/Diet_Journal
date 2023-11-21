@@ -16,12 +16,18 @@ function App() {
   const [selectedDateFood, setSelectedDateFood] = useState({
     id: null,
     food: [],
+    symptoms: [],
   });
   const [listFood, setListFood] = useState(localData);
 
   // save the data to localstorage everytime listfood changed
   useEffect(() => {
     localStorage.setItem("foods", JSON.stringify(listFood));
+  }, [listFood]);
+
+  // view list
+  useEffect(() => {
+    console.log(listFood);
   }, [listFood]);
 
   // get date from calendar, iterate array in listfood based on the id(date)
@@ -33,6 +39,7 @@ function App() {
       setSelectedDateFood({
         id: date,
         food: [],
+        symptoms: [],
       });
     }
     setDate(date);
