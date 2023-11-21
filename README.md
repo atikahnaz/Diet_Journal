@@ -1,4 +1,4 @@
-# YOUR PROJECT TITLE
+# FOOD JOURNAL
 
 #### Video Demo: <URL HERE>
 

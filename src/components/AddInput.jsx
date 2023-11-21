@@ -8,8 +8,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddButton from "./AddButton";
-import FormInput from "./FormInput";
-import ListFood from "./ListFood";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,17 +20,15 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const [listFood, setListFood] = useState(listobjectFood);
   //listobjectfood should be only an object with multiple food with one id
 
+  // keep listFood in sync with changes to listobjectFood throughout
+  // the component's lifecycle
   useEffect(() => {
     setListFood(listobjectFood);
   }, [listobjectFood]);
 
-  console.log(listobjectFood);
-  console.log(listFood);
   const handleClickOpen = () => {
     if (date) {
       setOpen(true);
-    } else {
-      console.log("enter date");
     }
   };
 
@@ -40,14 +36,25 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     setOpen(false);
   };
 
-  // when clicksave button, sent data to app.jsx
+  // when click save button, sent data to app.jsx
   const saveUpdatedList = () => {
     callbackAddFood(listFood);
     handleClose();
   };
+
+  // keep the original list food after cancel button clicked
   const cancel = () => {
     setListFood(listobjectFood);
     setOpen(false);
+  };
+
+  // edit saved foods list by clicking the input/textfield
+  const editFoods = (event, index) => {
+    const updatedFood = [...listFood.food];
+    const editedFood = event.target.value;
+    updatedFood.splice(index, 1, editedFood);
+    const updatedListFood = { ...listFood, food: updatedFood };
+    setListFood(updatedListFood);
   };
 
   // when click add, update the list of food
@@ -62,15 +69,6 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
       setFood("");
     }
   };
-
-  useEffect(() => {
-    console.log(listFood);
-  }, [listFood]);
-
-  // show in console log when date change
-  useEffect(() => {
-    console.log("test " + date);
-  }, [date]);
 
   // delete selected food, and update the list.
   const deleteFood = (index) => {
@@ -116,6 +114,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         value={food}
                         sx={{ pl: 0 }}
                         variant="plain"
+                        onChange={(event) => editFoods(event, index)}
                       />
                       <DeleteIcon onClick={() => deleteFood(index)} />
                     </ListItem>

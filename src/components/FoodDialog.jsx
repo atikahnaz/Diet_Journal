@@ -20,15 +20,15 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
   const [listFood, setListFood] = useState(listobjectFood);
-  const [toEditFood, setToEditFood] = useState("");
+
   //listobjectfood should be only an object with multiple food with one id
 
+  // keep listFood in sync with changes to listobjectFood throughout
+  // the component's lifecycle
   useEffect(() => {
     setListFood(listobjectFood);
   }, [listobjectFood]);
 
-  console.log(listobjectFood);
-  console.log(listFood);
   const handleClickOpen = () => {
     if (date) {
       setOpen(true);
@@ -64,11 +64,6 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     console.log(listFood);
   }, [listFood]);
 
-  // show in console log when date change
-  useEffect(() => {
-    console.log("test " + date);
-  }, [date]);
-
   // delete selected food, and update the list.
   const deleteFood = (index) => {
     const updatedFood = [...listFood.food];
@@ -77,11 +72,13 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     setListFood(updatedListFood);
   };
 
+  // keep the original list food after cancel button clicked
   const cancel = () => {
     setListFood(listobjectFood);
     setOpen(false);
   };
 
+  // edit saved foods list by clicking the input/textfield
   const editFoods = (event, index) => {
     const updatedFood = [...listFood.food];
     const editedFood = event.target.value;

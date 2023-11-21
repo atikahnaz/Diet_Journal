@@ -7,12 +7,11 @@ import CardFood from "./components/CardFood";
 import Header from "./components/Header";
 import Typography from "@mui/material/Typography";
 import BarApp from "./components/BarApp";
-import Grid from "@mui/material/Grid";
-import { TextField } from "@mui/joy";
 
 function App() {
   // retrieve localdata
   const localData = JSON.parse(localStorage.getItem("foods"));
+
   const [date, setDate] = useState("");
   const [selectedDateFood, setSelectedDateFood] = useState({
     id: null,
@@ -36,12 +35,11 @@ function App() {
         food: [],
       });
     }
-    console.log("date " + date);
     setDate(date);
   };
 
-  console.log("selectedfood" + JSON.stringify(selectedDateFood));
-
+  // callback function to save data from fooddialog and add input component
+  // save to app component
   const addListFood = (data) => {
     // check if the date/id exist
     const checkDate = data.id;
@@ -63,7 +61,7 @@ function App() {
       copyListFood.splice(indexUpdate, 1);
       setListFood(copyListFood);
       // no date and list empty, keep the original list
-    } else if (indexUpdate == -1 && data.food.length === 0) {
+    } else if (indexUpdate === -1 && data.food.length === 0) {
       setListFood([...listFood]);
       //new date, insert new list
     } else {
@@ -74,13 +72,6 @@ function App() {
       setListFood([...listFood, newItem]);
     }
   };
-
-  useEffect(() => {
-    console.log("main food " + JSON.stringify(listFood));
-  }, [listFood]);
-  useEffect(() => {
-    console.log("date set" + date);
-  }, [date]);
 
   return (
     <>
