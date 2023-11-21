@@ -1,7 +1,7 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { Box, Container } from "@mui/system";
+import { Box } from "@mui/system";
 
 export default function SimpleContainer() {
   return (
