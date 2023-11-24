@@ -31,12 +31,22 @@ export default function BasicCard({ listFood, addListFood }) {
             <Card sx={{ minWidth: 275, mb: 2 }}>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <CardContent>
+                  {/* view date */}
                   <Typography variant="h6" component="div">
                     {list.id}
                   </Typography>
 
+                  {/*view Foods */}
                   <Typography>Foods</Typography>
                   {list.food.map((subList, subIndex) => (
+                    <>
+                      <Typography variant="body2">- {subList}</Typography>
+                    </>
+                  ))}
+
+                  {/*view Symptoms */}
+                  <Typography>Symptoms</Typography>
+                  {list.symptoms.map((subList, subIndex) => (
                     <>
                       <Typography variant="body2">- {subList}</Typography>
                     </>

@@ -19,8 +19,8 @@ import EditIcon from "@mui/icons-material/Edit";
 export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
+  const [symptom, setSymptom] = useState("");
   const [listFood, setListFood] = useState(listobjectFood);
-
   //listobjectfood should be only an object with multiple food with one id
 
   // keep listFood in sync with changes to listobjectFood throughout
@@ -47,6 +47,30 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     handleClose();
   };
 
+  // keep the original list food after cancel button clicked
+  const cancel = () => {
+    setListFood(listobjectFood);
+    setOpen(false);
+  };
+
+  // edit saved foods list by clicking the input/textfield
+  const editFood = (event, index) => {
+    const updatedFood = [...listFood.food];
+    const editedFood = event.target.value;
+    updatedFood.splice(index, 1, editedFood);
+    const updatedListFood = { ...listFood, food: updatedFood };
+    setListFood(updatedListFood);
+  };
+
+  // edit saved symptoms list by clicking the input/textfield
+  const editSymptoms = (event, index) => {
+    const updatedSymptoms = [...listFood.symptoms];
+    const editedSymptoms = event.target.value;
+    updatedSymptoms.splice(index, 1, editedSymptoms);
+    const updatedListSymptoms = { ...listFood, symptoms: updatedSymptoms };
+    setListFood(updatedListSymptoms);
+  };
+
   // when click add, update the list of food
   const addListFood = () => {
     let updatedListFood;
@@ -57,6 +81,24 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListFood);
       setFood("");
+    }
+  };
+
+  // update list symptoms
+  const addListSymptoms = () => {
+    let updatedListSymptoms;
+    if (symptom.length != 0) {
+      // list data from app
+      !listFood.symptoms
+        ? (updatedListSymptoms = { id: date, symptoms: [symptom] })
+        : (updatedListSymptoms = {
+            ...listFood,
+            symptoms: [...listFood.symptoms, symptom],
+          });
+
+      setListFood(updatedListSymptoms);
+      setSymptom("");
+      console.log(updatedListSymptoms);
     }
   };
 
@@ -72,18 +114,12 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     setListFood(updatedListFood);
   };
 
-  // keep the original list food after cancel button clicked
-  const cancel = () => {
-    setListFood(listobjectFood);
-    setOpen(false);
-  };
+  // delete selected symptoms and update the list
+  const deleteSymptom = (index) => {
+    const updatedSymptom = [...listFood.symptoms];
+    updatedSymptom.splice(index, 1);
 
-  // edit saved foods list by clicking the input/textfield
-  const editFoods = (event, index) => {
-    const updatedFood = [...listFood.food];
-    const editedFood = event.target.value;
-    updatedFood.splice(index, 1, editedFood);
-    const updatedListFood = { ...listFood, food: updatedFood };
+    const updatedListFood = { ...listFood, symptoms: updatedSymptom };
     setListFood(updatedListFood);
   };
 
@@ -117,6 +153,21 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
             </Button>
           </DialogActions>
 
+          <TextField
+            variant="outlined"
+            label="Symptoms"
+            multiline
+            fullWidth
+            margin="dense"
+            value={symptom}
+            onChange={(event) => setSymptom(event.target.value)}
+          ></TextField>
+          <DialogActions>
+            <Button variant="contained" onClick={addListSymptoms}>
+              Add
+            </Button>
+          </DialogActions>
+
           {/* view list of food from the array listFood */}
           <DialogContentText>List of foods you have eaten</DialogContentText>
           <List>
@@ -131,10 +182,35 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
                         value={food}
                         sx={{ pl: 0 }}
                         variant="plain"
-                        onChange={(event) => editFoods(event, index)}
+                        onChange={(event) => editFood(event, index)}
                       />
 
                       <DeleteIcon onClick={() => deleteFood(index)} />
+                    </ListItem>
+                    <ListDivider inset={"gutter"} />
+                  </>
+                ))
+              : null}
+          </List>
+
+          {/* view list of symptoms */}
+
+          <DialogContentText>Symptoms</DialogContentText>
+          <List>
+            {/* iterate list if the listfood already exist. if no data, show empty list */}
+            {Array.isArray(listFood.symptoms) && listFood.symptoms
+              ? listFood.symptoms.map((symptom, index) => (
+                  <>
+                    <ListItem sx={{ pl: 0 }}>
+                      <Input
+                        fullWidth
+                        inset="gutter"
+                        value={symptom}
+                        sx={{ pl: 0 }}
+                        variant="plain"
+                        onChange={(event) => editSymptoms(event, index)}
+                      />
+                      <DeleteIcon onClick={() => deleteSymptom(index)} />
                     </ListItem>
                     <ListDivider inset={"gutter"} />
                   </>

@@ -51,12 +51,21 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   };
 
   // edit saved foods list by clicking the input/textfield
-  const editInput = (event, index) => {
+  const editFood = (event, index) => {
     const updatedFood = [...listFood.food];
     const editedFood = event.target.value;
     updatedFood.splice(index, 1, editedFood);
     const updatedListFood = { ...listFood, food: updatedFood };
     setListFood(updatedListFood);
+  };
+
+  // edit saved symptoms list by clicking the input/textfield
+  const editSymptoms = (event, index) => {
+    const updatedSymptoms = [...listFood.symptoms];
+    const editedSymptoms = event.target.value;
+    updatedSymptoms.splice(index, 1, editedSymptoms);
+    const updatedListSymptoms = { ...listFood, symptoms: updatedSymptoms };
+    setListFood(updatedListSymptoms);
   };
 
   // when click add, update the list of food
@@ -162,7 +171,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         value={food}
                         sx={{ pl: 0 }}
                         variant="plain"
-                        onChange={(event) => editInput(event, index)}
+                        onChange={(event) => editFood(event, index)}
                       />
                       <DeleteIcon onClick={() => deleteFood(index)} />
                     </ListItem>
@@ -173,7 +182,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
           </List>
 
           {/* view list of symptoms */}
-          {/* */}
+
           <DialogContentText>Symptoms</DialogContentText>
           <List>
             {/* iterate list if the listfood already exist. if no data, show empty list */}
@@ -187,7 +196,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         value={symptom}
                         sx={{ pl: 0 }}
                         variant="plain"
-                        onChange={(event) => editInput(event, index)}
+                        onChange={(event) => editSymptoms(event, index)}
                       />
                       <DeleteIcon onClick={() => deleteSymptom(index)} />
                     </ListItem>
