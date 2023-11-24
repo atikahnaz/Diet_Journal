@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "@mui/joy/Input";
 import ListDivider from "@mui/joy/ListDivider";
 
+// get date and list from app. sent back data to app to save to local storage
 export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState("");
@@ -37,7 +38,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     setOpen(false);
   };
 
-  // when click save button, sent data to app.jsx
+  // when click save button, sent data and save to app.jsx
   const saveUpdatedList = () => {
     callbackAddFood(listFood);
     handleClose();
@@ -62,7 +63,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const addListFood = () => {
     let updatedListFood;
     if (food.length != 0) {
-      listFood.food.length === 0
+      !listFood.food
         ? (updatedListFood = { id: date, food: [food] })
         : (updatedListFood = { ...listFood, food: [...listFood.food, food] });
 
@@ -76,7 +77,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     let updatedListSymptoms;
     if (symptom.length != 0) {
       // list data from app
-      listFood.symptoms.length === 0
+      !listFood.symptoms
         ? (updatedListSymptoms = { id: date, symptoms: [symptom] })
         : (updatedListSymptoms = {
             ...listFood,
@@ -99,6 +100,15 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
     updatedFood.splice(index, 1);
 
     const updatedListFood = { ...listFood, food: updatedFood };
+    setListFood(updatedListFood);
+  };
+
+  // delete selected symptoms and update the list
+  const deleteSymptom = (index) => {
+    const updatedSymptom = [...listFood.symptoms];
+    updatedSymptom.splice(index, 1);
+
+    const updatedListFood = { ...listFood, symptoms: updatedSymptom };
     setListFood(updatedListFood);
   };
 
@@ -155,6 +165,31 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
                         onChange={(event) => editInput(event, index)}
                       />
                       <DeleteIcon onClick={() => deleteFood(index)} />
+                    </ListItem>
+                    <ListDivider inset={"gutter"} />
+                  </>
+                ))
+              : null}
+          </List>
+
+          {/* view list of symptoms */}
+          {/* */}
+          <DialogContentText>Symptoms</DialogContentText>
+          <List>
+            {/* iterate list if the listfood already exist. if no data, show empty list */}
+            {Array.isArray(listFood.symptoms) && listFood.symptoms
+              ? listFood.symptoms.map((symptom, index) => (
+                  <>
+                    <ListItem sx={{ pl: 0 }}>
+                      <Input
+                        fullWidth
+                        inset="gutter"
+                        value={symptom}
+                        sx={{ pl: 0 }}
+                        variant="plain"
+                        onChange={(event) => editInput(event, index)}
+                      />
+                      <DeleteIcon onClick={() => deleteSymptom(index)} />
                     </ListItem>
                     <ListDivider inset={"gutter"} />
                   </>

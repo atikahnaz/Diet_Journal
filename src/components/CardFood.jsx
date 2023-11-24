@@ -35,6 +35,7 @@ export default function BasicCard({ listFood, addListFood }) {
                     {list.id}
                   </Typography>
 
+                  <Typography>Foods</Typography>
                   {list.food.map((subList, subIndex) => (
                     <>
                       <Typography variant="body2">- {subList}</Typography>

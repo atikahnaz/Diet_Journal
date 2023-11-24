@@ -30,6 +30,11 @@ function App() {
     console.log(listFood);
   }, [listFood]);
 
+  useEffect(() => {
+    console.log("List Food:", listFood);
+    // ... rest of your code
+  }, [listFood]);
+
   // get date from calendar, iterate array in listfood based on the id(date)
   const callbackdate = (date) => {
     const selectedObject = listFood.find((item) => item.id === date);
@@ -57,24 +62,45 @@ function App() {
       (element) => element.id === checkDate
     );
 
-    if (indexUpdate !== -1 && data.food.length > 0) {
-      //the date exist, so update the list based on id
+    //the date exist, so update the list based on id
+    if (
+      indexUpdate !== -1 &&
+      (data.food.length !== 0 || data.symptoms.length !== 0)
+    ) {
+      console.log("dateexist");
       const updatedList = data.food;
+      const updatedListSymptoms = data.symptoms;
       listFood[indexUpdate].food = updatedList;
+      listFood[indexUpdate].symptoms = updatedListSymptoms;
       setListFood([...listFood]);
+
       //date exist but empty list. remove the object
-    } else if (indexUpdate !== -1 && data.food.length === 0) {
+    } else if (
+      indexUpdate !== -1 &&
+      data.food.length === 0 &&
+      data.symptoms.length === 0
+    ) {
+      console.log("Removing object:", indexUpdate, data.food.length);
       const copyListFood = [...listFood];
       copyListFood.splice(indexUpdate, 1);
       setListFood(copyListFood);
+
       // no date and list empty, keep the original list
-    } else if (indexUpdate === -1 && data.food.length === 0) {
+    } else if (
+      indexUpdate === -1 &&
+      data.food.length === 0 &&
+      data.symptoms.length === 0
+    ) {
+      console.log("no date listempty");
       setListFood([...listFood]);
+
       //new date, insert new list
     } else {
+      console.log("new");
       const newItem = {
         id: data.id,
         food: data.food,
+        symptoms: data.symptoms,
       };
       setListFood([...listFood, newItem]);
     }
