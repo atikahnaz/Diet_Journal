@@ -37,20 +37,42 @@ export default function BasicCard({ listFood, addListFood }) {
                   </Typography>
 
                   {/*view Foods */}
-                  <Typography>Foods</Typography>
+
+                  {list.food.length > 0 ? (
+                    <>
+                      <Typography variant="h6">Foods</Typography>
+                      {list.food.map((subList, subIndex) => (
+                        <>
+                          <Typography variant="body2">- {subList}</Typography>
+                        </>
+                      ))}
+                    </>
+                  ) : null}
+                  {/** <Typography>Foods</Typography>
                   {list.food.map((subList, subIndex) => (
                     <>
                       <Typography variant="body2">- {subList}</Typography>
                     </>
-                  ))}
+                  ))}*/}
 
                   {/*view Symptoms */}
-                  <Typography>Symptoms</Typography>
+                  {list.symptoms.length > 0 ? (
+                    <>
+                      <Typography variant="h6">Symptoms</Typography>
+                      {list.symptoms.map((subList, subIndex) => (
+                        <>
+                          <Typography variant="body2">- {subList}</Typography>
+                        </>
+                      ))}
+                    </>
+                  ) : null}
+
+                  {/** <Typography>Symptoms</Typography>
                   {list.symptoms.map((subList, subIndex) => (
                     <>
                       <Typography variant="body2">- {subList}</Typography>
                     </>
-                  ))}
+                  ))}*/}
                 </CardContent>
 
                 <Box sx={{ display: "flex", alignItems: "flex-end" }}>

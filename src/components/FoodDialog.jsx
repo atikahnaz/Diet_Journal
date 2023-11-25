@@ -75,7 +75,7 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const addListFood = () => {
     let updatedListFood;
     if (food.length != 0) {
-      listFood.food.length === 0
+      !listFood.food
         ? (updatedListFood = { id: date, food: [food] })
         : (updatedListFood = { ...listFood, food: [...listFood.food, food] });
 
@@ -118,7 +118,6 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
   const deleteSymptom = (index) => {
     const updatedSymptom = [...listFood.symptoms];
     updatedSymptom.splice(index, 1);
-
     const updatedListFood = { ...listFood, symptoms: updatedSymptom };
     setListFood(updatedListFood);
   };

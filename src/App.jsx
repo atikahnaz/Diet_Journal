@@ -10,7 +10,7 @@ import BarApp from "./components/BarApp";
 
 function App() {
   // retrieve localdata
-  const localData = JSON.parse(localStorage.getItem("foods"));
+  const localData = JSON.parse(localStorage.getItem("foods")) || [];
 
   const [date, setDate] = useState("");
   const [selectedDateFood, setSelectedDateFood] = useState({
@@ -80,7 +80,7 @@ function App() {
       data.food.length === 0 &&
       data.symptoms.length === 0
     ) {
-      console.log("Removing object:", indexUpdate, data.food.length);
+      console.log("Removing object:");
       const copyListFood = [...listFood];
       copyListFood.splice(indexUpdate, 1);
       setListFood(copyListFood);

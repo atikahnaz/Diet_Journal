@@ -78,6 +78,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListFood);
       setFood("");
+      console.log("updated list " + updatedListFood);
     }
   };
 
@@ -95,7 +96,7 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListSymptoms);
       setSymptom("");
-      console.log(updatedListSymptoms);
+      console.log("updated list " + updatedListSymptoms);
     }
   };
 
@@ -107,7 +108,6 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const deleteFood = (index) => {
     const updatedFood = [...listFood.food];
     updatedFood.splice(index, 1);
-
     const updatedListFood = { ...listFood, food: updatedFood };
     setListFood(updatedListFood);
   };
@@ -116,7 +116,6 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
   const deleteSymptom = (index) => {
     const updatedSymptom = [...listFood.symptoms];
     updatedSymptom.splice(index, 1);
-
     const updatedListFood = { ...listFood, symptoms: updatedSymptom };
     setListFood(updatedListFood);
   };
