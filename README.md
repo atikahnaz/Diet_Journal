@@ -53,7 +53,7 @@ Using useState from react, I set the initial value for date, selectedDateFood ba
   });
   ```
 
-  #### Save Inputs
+#### Save Inputs
 
 - Each time users click save button, callback function named **addListFood** will run and data from child components(AddInput.jsx, FoodDialog.jsx) will be saved. This function will iterate and find the matched date.
 
