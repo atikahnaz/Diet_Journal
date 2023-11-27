@@ -17,14 +17,16 @@ The website is created using React, Vite, and Material UI.
 - This is the main component that organize and save the main data to local storage.
 - All the child components will have access to data from app.jsx.
 
-**Local storage**
+#### Local storage
+
 Retrieve saved data from local storage each time users open or refresh the page.
 
 ```jsx
 const localData = JSON.parse(localStorage.getItem("foods")) || [];
 ```
 
-**useState**
+#### useState
+
 Using useState from react, I set the initial value for date, selectedDateFood based on date and listFood.
 
 - Date
@@ -51,7 +53,7 @@ Using useState from react, I set the initial value for date, selectedDateFood ba
   });
   ```
 
-  **Save Inputs**
+  #### Save Inputs
 
 - Each time users click save button, callback function named **addListFood** will run and data from child components(AddInput.jsx, FoodDialog.jsx) will be saved. This function will iterate and find the matched date.
 
