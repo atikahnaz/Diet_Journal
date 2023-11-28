@@ -1,23 +1,23 @@
 # FOOD JOURNAL
 
-#### Video Demo: <URL HERE>
+#### Video Demo: [URL HERE]
 
 #### Description:
 
-I've created a Food Journal responsive website that allow users to save list of foods and symptoms they have.
+I've created a responsive Food Journal website that allows users to save lists of foods and symptoms they experience.
 
-Users can select date on calendar, write and update foods and symptoms they wish to save. This will help users to monitor food intakes and record all the side effects that may help people to identify food allergens.
+Users can select a date on the calendar, write, and update the foods and symptoms they wish to save. This will help users monitor their food intake and record any side effects, aiding in the identification of food allergens.
 
-The website is created using React, Vite, and Material UI.
+The website is built using React, Vite, and Material UI.
 
 ## COMPONENTS
 
 ### App.jsx
 
-- This is the main component that organize and save the main data to local storage.
-- All the child components will have access to data from app.jsx.
+- This is the main component that organizes and saves the main data to local storage.
+- All child components have access to data from app.jsx.
 
-#### Local storage
+#### Local Storage
 
 Retrieve saved data from local storage each time users open or refresh the page.
 
@@ -27,13 +27,15 @@ const localData = JSON.parse(localStorage.getItem("foods")) || [];
 
 #### useState
 
-Using useState from react, I set the initial value for date, selectedDateFood based on date and listFood.
+Using useState from React, I set the initial values for date, selectedDateFood based on the date, and listFood.
 
-- Date
-  - initial date is set to empty. Each time users click the calendar, DateSelect.jsx will run with callback function and sent the date to App.jsx. setDate function will save the date based on users input.
-- selectedDateFood
+- **Date**
 
-  - this is object that have id(date) , food(list of foods) and symptoms(list of symptoms).
+  - The initial date is set to empty. Each time users click the calendar, DateSelect.jsx runs with a callback function and sends the date to App.jsx. The setDate function saves the date based on user input.
+
+- **selectedDateFood**
+
+  - This object has id (date), food (list of foods), and symptoms (list of symptoms).
 
   ```jsx
   const [selectedDateFood, setSelectedDateFood] = useState({
@@ -43,7 +45,7 @@ Using useState from react, I set the initial value for date, selectedDateFood ba
   });
   ```
 
-  - each time users clicked the date on calendar, it will run callback function named **callbackdate** that iterate array to find the date match with the calendar. If date exist, **selectedDateFood** is set to match data. If not, new object will be created with id == date and food and symptoms set to empty array.
+  - Each time users click the date on the calendar, the callback function named callbackdate iterates through the array to find the date that matches the calendar. If the date exists, selectedDateFood is set to match the data. If not, a new object is created with id equal to the date, and food and symptoms set to empty arrays.
 
   ```jsx
   setSelectedDateFood({
@@ -55,7 +57,7 @@ Using useState from react, I set the initial value for date, selectedDateFood ba
 
 #### Save Inputs
 
-- Each time users click save button, callback function named **addListFood** will run and data from child components(AddInput.jsx, FoodDialog.jsx) will be saved. This function will iterate and find the matched date.
+- Each time users click the save button, the callback function named addListFood runs, and data from child components (AddInput.jsx, FoodDialog.jsx) will be saved. This function iterates and finds the matched date.
 
 ```jsx
 const addListFood = (data) => {
@@ -64,7 +66,7 @@ const addListFood = (data) => {
 };
 ```
 
-- If the date is matched and data is available, replace the array with updated array using spread operator.
+- If the date is matched, and data is available, replace the array with the updated array using the spread operator.
 
 ```jsx
 if (
@@ -79,7 +81,7 @@ if (
 }
 ```
 
-- No date is matched and no input received (empty), ListFood is set to original value.
+- If no date is matched and no input is received (empty), ListFood is set to the original value.
 
 ```jsx
 else if (
@@ -91,7 +93,7 @@ else if (
     }
 ```
 
-- No date is matched and data input is available, insert new object to array of listFood.
+- If no date is matched, and data input is available, insert a new object into the array of listFood.
 
 ```jsx
 const newItem = {
@@ -104,15 +106,14 @@ setListFood([...listFood, newItem]);
 
 ### AddInput.jsx and FoodDialog.jsx
 
-- Child component that receive data from users. Users can add, delete and edit inputs.
-- Get copy of data from App.jsx and set the listFood to data that contained the date, foods and symptoms.
+- Child components that receive data from users. Users can add, delete, and edit inputs.
+- Get a copy of data from App.jsx and set the listFood to data that contains the date, foods, and symptoms.
 
 ```jsx
 const [listFood, setListFood] = useState(listobjectFood);
 ```
 
-- add, edit and delete the data and update the listFood.
-- when users click the save button, callback function **saveUpdatedList** will run and sent the data to App.jsx.
+- Add, edit, and delete the data and update the listFood. When users click the save button, the callback function saveUpdatedList runs and sends the data to App.jsx.
 
 ```jsx
 const saveUpdatedList = () => {
@@ -123,18 +124,18 @@ const saveUpdatedList = () => {
 
 ### DateSelect.jsx
 
-    To save the inputs, users must select date from calendar. The date is sent to app.jsx and the data corespond to the same date will be choose and load into AddInput or FoodDialog components.
+- To save the inputs, users must select a date from the calendar. The date is sent to App.jsx, and the data corresponding to the same date will be chosen and loaded into AddInput or FoodDialog components.
 
 ### AddButton.jsx
 
-    Render in AddInput components, when clicked it trigger the popup dialog.
+- Rendered in AddInput components, when clicked, it triggers the popup dialog.
 
 ### CardFood.jsx
 
-    Compenents that visualize all the data that shows date, foods and symptoms. Users are able to edit by clicking the edit button and run FoodDialog component.
+- Components that visualize all the data, showing the date, foods, and symptoms. Users can edit by clicking the edit button and run the FoodDialog component.
 
 ### Header.jsx
 
-    Responsive image and title in the header.
+- Responsive image and title in the header.
 
 ### BarApp.jsx

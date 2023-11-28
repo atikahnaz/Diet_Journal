@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Home", "Dashboard"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -39,6 +39,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" sx={{ bgcolor: "#901CE5" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* */}
           <Typography
             variant="h6"
             noWrap
@@ -112,6 +113,7 @@ function ResponsiveAppBar() {
           >
             FOOD JOURNAL
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
