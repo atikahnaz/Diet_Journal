@@ -137,5 +137,3 @@ const saveUpdatedList = () => {
 ### Header.jsx
 
 - Responsive image and title in the header.
-
-### BarApp.jsx
