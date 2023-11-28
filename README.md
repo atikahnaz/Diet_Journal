@@ -79,9 +79,47 @@ if (
 }
 ```
 
+- No date is matched and no input received (empty), ListFood is set to original value.
+
+```jsx
+else if (
+      indexUpdate === -1 &&
+      data.food.length === 0 &&
+      data.symptoms.length === 0
+    ) {
+      setListFood([...listFood]);
+    }
+```
+
+- No date is matched and data input is available, insert new object to array of listFood.
+
+```jsx
+const newItem = {
+  id: data.id,
+  food: data.food,
+  symptoms: data.symptoms,
+};
+setListFood([...listFood, newItem]);
+```
+
 ### AddInput.jsx and FoodDialog.jsx
 
-    Child component that receive data from users. Users can add, delete and edit inputs.
+- Child component that receive data from users. Users can add, delete and edit inputs.
+- Get copy of data from App.jsx and set the listFood to data that contained the date, foods and symptoms.
+
+```jsx
+const [listFood, setListFood] = useState(listobjectFood);
+```
+
+- add, edit and delete the data and update the listFood.
+- when users click the save button, callback function **saveUpdatedList** will run and sent the data to App.jsx.
+
+```jsx
+const saveUpdatedList = () => {
+  callbackAddFood(listFood);
+  handleClose();
+};
+```
 
 ### DateSelect.jsx
 
