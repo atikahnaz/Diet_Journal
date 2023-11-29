@@ -1,6 +1,6 @@
 # FOOD JOURNAL
 
-#### Video Demo: [URL HERE]
+#### Video Demo: [https://youtu.be/ujkXW2i_Ncw]
 
 #### Description:
 
