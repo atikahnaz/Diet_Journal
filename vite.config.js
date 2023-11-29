@@ -7,4 +7,5 @@ export default defineConfig({
   build: {
     outDir: "build", // Ensure this matches the directory in the deploy script
   },
+  base: "/Diet_Journal/",
 });
