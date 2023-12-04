@@ -2,6 +2,8 @@
 
 #### Video Demo: [https://youtu.be/ujkXW2i_Ncw]
 
+#### Live Site : [https://atikahnaz.github.io/Diet_Journal/]
+
 #### Description:
 
 I've created a responsive Food Journal website that allows users to save lists of foods and symptoms they experience.
