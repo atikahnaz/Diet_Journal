@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "./Diet_Journal/",
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 1000, // Adjust this limit based on your needs
+  },
 });
