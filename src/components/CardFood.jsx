@@ -30,7 +30,13 @@ export default function BasicCard({ listFood, addListFood }) {
           <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ minWidth: 275, mb: 2 }}>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <CardContent>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}
+                >
                   {/* view date */}
                   <Typography variant="h6" component="div">
                     {list.id}
@@ -42,9 +48,7 @@ export default function BasicCard({ listFood, addListFood }) {
                     <>
                       <Typography variant="h6">Foods</Typography>
                       {list.food.map((subList, subIndex) => (
-                        <>
-                          <Typography variant="body2">- {subList}</Typography>
-                        </>
+                        <Typography variant="body2">- {subList}</Typography>
                       ))}
                     </>
                   ) : null}
