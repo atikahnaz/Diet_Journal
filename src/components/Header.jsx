@@ -1,6 +1,6 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import HeaderImage from "/undraw_eating_together_re_ux62.svg";
+import HeaderImage from "../../public/undraw_eating_together_re_ux62.svg";
 
 import { Box } from "@mui/system";
 
