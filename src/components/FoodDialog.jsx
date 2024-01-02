@@ -101,10 +101,6 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
     }
   };
 
-  useEffect(() => {
-    console.log(listFood);
-  }, [listFood]);
-
   // delete selected food, and update the list.
   const deleteFood = (index) => {
     const updatedFood = [...listFood.food];
