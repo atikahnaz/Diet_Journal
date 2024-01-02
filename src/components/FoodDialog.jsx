@@ -98,7 +98,6 @@ export default function FoodDialog({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListSymptoms);
       setSymptom("");
-      console.log(updatedListSymptoms);
     }
   };
 
