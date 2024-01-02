@@ -78,7 +78,6 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListFood);
       setFood("");
-      console.log("updated list " + updatedListFood);
     }
   };
 
@@ -96,13 +95,8 @@ export default function AddInput({ date, listobjectFood, callbackAddFood }) {
 
       setListFood(updatedListSymptoms);
       setSymptom("");
-      console.log("updated list " + updatedListSymptoms);
     }
   };
-
-  useEffect(() => {
-    console.log(listFood);
-  }, [listFood]);
 
   // delete selected food, and update the list.
   const deleteFood = (index) => {
