@@ -7,6 +7,7 @@ import CardFood from "./components/CardFood";
 import Header from "./components/Header";
 import Typography from "@mui/material/Typography";
 import BarApp from "./components/BarApp";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   // retrieve localdata
@@ -19,6 +20,7 @@ function App() {
     symptoms: [],
   });
   const [listFood, setListFood] = useState(localData);
+  const [activePage, setActivePage] = useState("Home");
 
   // save the data to localstorage everytime listfood changed
   useEffect(() => {
@@ -106,9 +108,14 @@ function App() {
     }
   };
 
+  const showActivePage = (page) => {
+    console.log(page);
+    setActivePage(page);
+  };
+
   return (
     <>
-      <BarApp />
+      <BarApp onPageChange={showActivePage} />
       {/* open dialog input */}
       <Box
         display="flex"
@@ -138,7 +145,13 @@ function App() {
           </Box>
         </div>
       </Box>
-      <CardFood listFood={listFood} addListFood={addListFood} />
+      {/*<Dashboard />
+      <CardFood listFood={listFood} addListFood={addListFood} /> */}
+
+      {activePage == "Home" && (
+        <CardFood listFood={listFood} addListFood={addListFood} />
+      )}
+      {activePage == "Dashboard" && <Dashboard />}
     </>
   );
 }
