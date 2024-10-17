@@ -129,20 +129,23 @@ function App() {
           <Typography variant="h4" sx={{}}>
             FOOD JOURNAL
           </Typography>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="left"
-            sx={{ my: 3 }}
-          >
-            <DateSelect callbackdate={callbackdate} />
 
-            <AddInput
-              date={date}
-              listobjectFood={selectedDateFood}
-              callbackAddFood={addListFood}
-            />
-          </Box>
+          {activePage == "Home" && (
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="left"
+              sx={{ my: 3 }}
+            >
+              <DateSelect callbackdate={callbackdate} />
+
+              <AddInput
+                date={date}
+                listobjectFood={selectedDateFood}
+                callbackAddFood={addListFood}
+              />
+            </Box>
+          )}
         </div>
       </Box>
       {/*<Dashboard />
